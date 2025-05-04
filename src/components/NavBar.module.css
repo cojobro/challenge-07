@@ -1,0 +1,81 @@
+.navBar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #003366;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+.logo {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.links {
+    display: flex;
+    gap: 20px;
+}
+
+.links a {
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+/* .actionLink {
+    font-weight: bold;
+} */
+
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.hamburger:focus {
+    outline: 2px solid #0066cc;
+}
+
+.mobileMenu {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background-color: #003366;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.mobileMenu a {
+    padding: 15px 20px;
+    font-size: 18px;
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid #005599;
+}
+
+.mobileMenu a:last-child {
+    border-bottom: none;
+}
+
+  /* Show hamburger on small screens */
+@media (max-width: 768px) {
+    .links {
+        display: none;
+    }
+    .hamburger {
+        display: block;
+    }
+}
