@@ -2,10 +2,10 @@ import React from 'react';
 import NavBar from './NavBar';
 import styles from './Layout.module.css';
 
-const Layout = ({ children }) => (
+const Layout = ({ children, onSearch }) => (
     <div className={styles.layout}>
         <header>
-            <NavBar />
+            <NavBar onSearch={onSearch}/>
         </header>
         <main className={styles.main}>
             {children}

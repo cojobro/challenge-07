@@ -24,13 +24,10 @@ const PostDetailPlaceholder = ({posts, onComment}) => {
   if (!post) return <p>Post not found.</p>;
   return (
     <BlogPostDetail
-      title={post.title}
-      content={post.content}
-      author={post.author}
-      date={post.date}
-      post = { post }
-      posts = {posts}
-      onComment = {onComment}
+      {...post}
+      post={post}
+      posts={posts}
+      onComment={onComment}
     />
   );
 };
@@ -104,36 +101,33 @@ function AppRoutes() {
   const navigate = useNavigate();
 
   const [posts, setPosts] = useState([...samplePosts]);
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const handleUpdate = (post, posts) => {
-    console.log(posts);
-    setPosts(updatePosts(post, posts));
-    console.log(posts);
-    navigate('/');
-  };
+  const handleSearch = term => setSearchTerm(term);
+  const filteredPosts = posts.filter(p =>
+    p.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    p.content.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-  const handleDelete = (postID, posts) => {
-    console.log(posts);
-    setPosts(deletePost(postID, posts));
-    console.log(posts);
-    navigate('/');
-  };
-
-  const handleComment = (post, posts, comment) => {
-    console.log(posts);
-    setPosts(commentPost(post, posts, comment));
-    console.log(posts);
-  }
+  const handleUpdate = (post, all) => { setPosts(updatePosts(post, all)); navigate('/'); };
+  const handleDelete = (id, all) => { setPosts(deletePost(id, all)); navigate('/'); };
+  const handleComment = (post, all, comment) => setPosts(commentPost(post, all, comment));
 
 
   return (
-    <Layout>
+    <Layout onSearch={handleSearch}>
       <h1 className="title">Conor&apos;s Epic Blog</h1>
 
       <Routes>
-        <Route path="/" element={<BlogPostList posts={posts} />} />
-        <Route path="/posts/:postId" element={<PostDetailPlaceholder posts={posts} onComment={handleComment}/>} />
-        <Route path="/postform" element={<PostFormPlaceholder posts={posts} onSubmit={handleUpdate} onDelete={handleDelete}/>} />
+        <Route path="/" element={<BlogPostList posts={filteredPosts} />} />
+        <Route 
+          path="/posts/:postId" 
+          element={<PostDetailPlaceholder posts={posts} onComment={handleComment}/>} 
+        />
+        <Route 
+          path="/postform" 
+          element={<PostFormPlaceholder posts={posts} onSubmit={handleUpdate} onDelete={handleDelete}/>} 
+        />
       </Routes>
     </Layout>
   );

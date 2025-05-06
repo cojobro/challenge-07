@@ -11,11 +11,15 @@ const mockPosts = [
 { id: '2', title: 'Post 2', summary: 'Summary 2', date: '2023-02-01', url: '/posts/2' },
 ];
 
+const mockSearch = () => {
+    return null;
+}
+
 describe('BlogPostList Component', () => {
     test('renders a list of BlogPostItem components when posts are provided', () => {
         render(
         <MemoryRouter>
-            <BlogPostList posts={mockPosts} />
+            <BlogPostList posts={mockPosts} onSearch={mockSearch} />
         </MemoryRouter>
         );
 
