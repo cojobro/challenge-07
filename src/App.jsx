@@ -7,6 +7,7 @@ import {
   Route,
   useLocation,
   useNavigate,
+  useParams,
 } from 'react-router-dom';
 
 import BlogPostList from './components/BlogPostList';
@@ -16,27 +17,20 @@ import Layout from './components/Layout';
 import { samplePosts } from './mockData';
 import './App.css';
 
-const PostDetailPlaceholder = (posts) => {
-  const postId = window.location.pathname.split('/').pop();
-  let post = null;
-  let found = false;
-  for (let i = 0; i < posts.posts.length; i++) {
-    if (posts.posts[i].id == postId) {
-        post = posts.posts[i];
-        found = true;
-        console.log("post was found!")
-    }
-  }
-  if (!found) {
-    console.warn(`Post with ID: ${postId} not found`)
-    return;
-  }
+const PostDetailPlaceholder = ({posts, onComment}) => {
+  const { postId } = useParams();           // react-router hook
+  const post = posts.find(p => p.id == Number(postId));
+
+  if (!post) return <p>Post not found.</p>;
   return (
     <BlogPostDetail
       title={post.title}
       content={post.content}
       author={post.author}
       date={post.date}
+      post = { post }
+      posts = {posts}
+      onComment = {onComment}
     />
   );
 };
@@ -93,6 +87,17 @@ const deletePost = (postID, allPosts) => {
   return allPosts;
 }
 
+const commentPost = (post, allPosts, comment) => {
+  return allPosts.map(p =>
+    p.id === post.id
+      ? {
+          ...p,
+          comments: [comment, ...(p.comments || [])]  // prepend new comment
+        }
+      : p
+  );
+};
+
 // We need our hooks to live _inside_ the Router context,
 // so we wrap the inner UI in its own component.
 function AppRoutes() {
@@ -114,6 +119,12 @@ function AppRoutes() {
     navigate('/');
   };
 
+  const handleComment = (post, posts, comment) => {
+    console.log(posts);
+    setPosts(commentPost(post, posts, comment));
+    console.log(posts);
+  }
+
 
   return (
     <Layout>
@@ -121,7 +132,7 @@ function AppRoutes() {
 
       <Routes>
         <Route path="/" element={<BlogPostList posts={posts} />} />
-        <Route path="/posts/:postId" element={<PostDetailPlaceholder posts={posts}/>} />
+        <Route path="/posts/:postId" element={<PostDetailPlaceholder posts={posts} onComment={handleComment}/>} />
         <Route path="/postform" element={<PostFormPlaceholder posts={posts} onSubmit={handleUpdate} onDelete={handleDelete}/>} />
       </Routes>
     </Layout>

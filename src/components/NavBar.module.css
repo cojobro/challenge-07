@@ -7,7 +7,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
     box-sizing: border-box;
     z-index: 1000;
 }
@@ -17,9 +16,11 @@
     font-size: 24px;
     font-weight: bold;
     text-decoration: none;
+    margin-left:20px;
 }
 
 .links {
+    margin-right: 20px;
     display: flex;
     gap: 20px;
 }
@@ -41,6 +42,9 @@
     color: white;
     font-size: 24px;
     cursor: pointer;
+    margin-right: 5px;
+    margin-bottom: 7px;
+    max-width: 50px;
 }
 
 .hamburger:focus {

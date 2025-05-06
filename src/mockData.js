@@ -7,6 +7,7 @@ export const samplePosts = [
         date: '2023-01-01', // ISO format
         url: '/posts/1',
         content: '<h1>Heading</h1><p>Some paragraph text</p><h2>Subheading</h2><p>More paragraph text</p>',
+        comments: [],
     },
     {
         id: '2',
@@ -16,6 +17,7 @@ export const samplePosts = [
         date: '2023-02-15',
         url: '/posts/2',
         content: '<h1>Heading</h1><p>Some paragraph text</p><h2>Subheading</h2><p>More paragraph text</p>',
+        comments: [],
     },
     {
         id: '3',
@@ -25,6 +27,7 @@ export const samplePosts = [
         date: '2023-03-10',
         url: '/posts/3',
         content: '<h1>Heading</h1><p>Some paragraph text</p><h2>Subheading</h2><p>More paragraph text</p>',
+        comments: [],
     },
     {
         id: '4',
@@ -34,6 +37,7 @@ export const samplePosts = [
         date: '2023-04-22',
         url: '/posts/4',
         content: '<h1>Heading</h1><p>Some paragraph text</p><h2>Subheading</h2><p>More paragraph text</p>',
+        comments: [],
     },
     {
         id: '5',
@@ -43,5 +47,6 @@ export const samplePosts = [
         date: '2023-05-30',
         url: '/posts/5',
         content: '<h1>Heading</h1><p>Some paragraph text</p><h2>Subheading</h2><p>More paragraph text</p>',
+        comments: [],
     },
 ];
